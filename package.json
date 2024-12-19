@@ -1,5 +1,6 @@
 {
   "name": "gql-bash-unity-todoapp",
+  "type": "module",
   "version": "1.0.0",
   "description": "When you're ready, start your application by running: `docker compose up --build`.",
   "main": "index.js",
@@ -7,5 +8,11 @@
     "start": "node --experimental-strip-types src/index.ts"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cgi": "^0.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2"
+  }
 }
