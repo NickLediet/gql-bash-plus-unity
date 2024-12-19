@@ -19,12 +19,17 @@ export type BashGqlConfigOptions = {
   /**
    * Absolute path to the cgi entry script, likely a router
    */
-  routerScript: string,
+  entryScript: string,
 
   /**
    * The port for the cgi server to listen for connections on 
    */
   port: number,
+
+  /**
+   * The directory root for the cgi source code
+   */
+  srcDir: string,
 
   /**
    * The path to the bash library code
@@ -45,6 +50,7 @@ export type BashGqlConfigOptions = {
 export async function parseConfig(
   filePath: string
 ): Promise<BashGqlConfigOptions> {
+  // @TODO: Add logic to allow snake_cased keys, but camelCase in typedef
   const yamlFileData = await readFile(filePath)
   const data = parse(yamlFileData.toString()) 
 

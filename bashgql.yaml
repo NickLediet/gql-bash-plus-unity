@@ -1,24 +1,29 @@
-routerScript: ./demo-app/bootstrap.cgi
 port: 8888
+srcDir: ./demo-app
 libDir: ./src/lib
 tempDir: ./temp-dir
+entryScript: bootstrap.cgi
 routes:
-  - route: "^\/todos\/[0-9]+/$"
+  - route: ^/$
     method: GET
-    controller: demo-app/todos/get_todo.controller.cgi
+    controller: controllers/helloworld.cgi
 
-  - route: "^\/todos\/$"
+  - route: ^/todos/[0-9]+/$
     method: GET
-    controller: demo-app/todos/get_todos.controller.cgi
+    controller: controllers/todos/get_todo.cgi
 
-  - route: "^\/todos\/$"
+  - route: ^/todos/$
+    method: GET
+    controller: todos/get_todos.controller.cgi
+
+  - route: ^/todos/$
     method: POST
-    controller: demo-app/todos/create_todos.controller.cgi
+    controller: todos/create_todos.controller.cgi
 
-  - route: "^\/todos\/[0-9]+/$"
+  - route: ^/todos/[0-9]+/$
     method: PUT
-    controller: demo-app/todos/update_todo.controller.cgi
+    controller: todos/update_todo.controller.cgi
 
-  - route: "^\/todos\/[0-9]+/$"
+  - route: ^/todos\\/[0-9]+/$
     method: DELETE
-    controller: demo-app/todos/delete_todo.controller.cgi
+    controller: todos/delete_todo.controller.cgi

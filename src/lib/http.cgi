@@ -1,16 +1,24 @@
 #!/bin/bash
 source "${LIB_DIR}/response.cgi"
+source "${LIB_DIR}/log.cgi"
 
-function http_header {
+function http-header {
   local header_key=$1
   local header_value=$2
 
-  response_write "${header_key}: ${header_value}"
+  response-write "${header_key}: ${header_value}"
 }
-export -f http_header
+export -f http-header
 
-function http_body {
+function http-body {
   local body_contents=$1
-  response_write_body "${body_contents}"
+  response-write-body "${body_contents}"
 }
-export -f http_body
+export -f http-body
+
+function http-json-body {
+  local json=$(bash -c "jq -cn $* '\$ARGS.named'")
+ 
+  response-write-body "$json"
+}
+export -f http-json-body

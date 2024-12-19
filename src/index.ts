@@ -28,12 +28,15 @@ function setupServer(script: string, port: number) {
   try {
     const config = await parseConfig("bashgql.yaml")
     const port = (config.port || process.env.PORT || 8888) as number
+    const srcDir = config.srcDir
     const script = path.resolve(
-      config.routerScript
+      srcDir,
+      config.entryScript
     )
     process.env.BASHGQL_CONFIG = JSON.stringify(config)
     process.env.LIB_DIR = config.libDir
     process.env.TEMP_DIR = path.resolve(config.tempDir)
+    process.env.SRC_DIR = srcDir
 
     setupServer(script, port)
   } catch (error) {
