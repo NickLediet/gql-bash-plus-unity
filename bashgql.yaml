@@ -1,2 +1,24 @@
-routerScript: ./src/router.cgi
+routerScript: ./demo-app/bootstrap.cgi
 port: 8888
+libDir: ./src/lib
+tempDir: ./temp-dir
+routes:
+  - route: "^\/todos\/[0-9]+/$"
+    method: GET
+    controller: demo-app/todos/get_todo.controller.cgi
+
+  - route: "^\/todos\/$"
+    method: GET
+    controller: demo-app/todos/get_todos.controller.cgi
+
+  - route: "^\/todos\/$"
+    method: POST
+    controller: demo-app/todos/create_todos.controller.cgi
+
+  - route: "^\/todos\/[0-9]+/$"
+    method: PUT
+    controller: demo-app/todos/update_todo.controller.cgi
+
+  - route: "^\/todos\/[0-9]+/$"
+    method: DELETE
+    controller: demo-app/todos/delete_todo.controller.cgi
