@@ -1,0 +1,2 @@
+routerScript: ./src/router.cgi
+port: 8888

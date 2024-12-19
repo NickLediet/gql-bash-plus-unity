@@ -3,24 +3,45 @@ import cgi from 'cgi'
 import { createServer } from 'node:http'
 import path from 'path'
 import { cwd } from 'process'
+import { parseConfig } from './lib/parse-config.ts'
 
-// @TODO: migrate to yaml config w/defauts
-const PORT = process.env.PORT || 8888
+function setupServer(script: string, port: number) {
+    const server = createServer(
+      cgi(script)
+    )
 
-// @TODO: migrate to yaml config w/defauts
-const script = path.resolve('src/router.cgi')
+    // @TODO: replace with an actual logger
+    server.on('error', console.error)
+    server.listen(port, () => {
+      console.log(`Starting server on port ${port}`)
+    })  
+}
 
-console.log(script)
+(async function main() {
+  try {
+    const config = await parseConfig("bashgql.yaml")
+    const port = config.port || process.env.PORT || 8888
 
-const server = createServer(
-  cgi(script)
-)
+    // @TODO: migrate to yaml config w/defauts
+    const script = path.resolve(
+      config.routerScript
+    )
 
 
-// @TODO: replace with an actual logger
-server.on('error', console.error)
+    setupServer(script, port as number);
+    console.log(script)
+
+  } catch (error) {
+    if(!(error instanceof Error)) {
+      // @TODO: replace with logger
+      console.error("Unknown error thrown: ", error)
+      process.exit(1)
+    }
+
+    // @TODO: Replace with logger
+    console.error("Error: ", error.message)
+    process.exit(1);
+  }
+})()
 
 
-server.listen(PORT, () => {
-  console.log(`Starting server on port ${PORT}`)
-})
