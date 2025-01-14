@@ -5,13 +5,19 @@ function create-log {
     mkdir "${TEMP_DIR}"
   fi
 
-  if [[ ! -f "${TEMP_DIR}/log.txt" ]]; then
-    touch "${TEMP_DIR}/log.txt"
+  local logfile="${TEMP_DIR}/log.txt"
+  if [[ ! -f $logFile ]]; then
+    touch "$logfile"
+    chmod +w "$logfile"
   fi  
 }
 export -f create-log
 
 function log {
+  if [ "$LOGGING" = "off" ]; then 
+    return 0
+  fi
+
   create-log 
   if [[ -z "$1" ]]; then
     read -r data
