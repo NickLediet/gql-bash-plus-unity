@@ -1,3 +1,4 @@
+# @TODO: Move to the demo-app and register as a part of the bootstrap process
 port: 8888
 srcDir: ./demo-app
 libDir: ./src/lib
@@ -18,12 +19,12 @@ routes:
 
   - route: ^/todos/$
     method: POST
-    controller: todos/create_todos.controller.cgi
+    controller: controllers/todos/create_todos.cgi
 
   - route: ^/todos/[0-9]+/$
     method: PUT
-    controller: todos/update_todo.controller.cgi
+    controller: todos/update_todo.cgi
 
   - route: ^/todos\\/[0-9]+/$
     method: DELETE
-    controller: todos/delete_todo.controller.cgi
+    controller: todos/delete_todo.cgi
