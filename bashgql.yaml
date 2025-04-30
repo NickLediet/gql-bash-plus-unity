@@ -4,6 +4,7 @@ srcDir: ./demo-app
 libDir: ./src/lib
 tempDir: ./temp-dir
 entryScript: bootstrap.cgi
+# @TODO: add Content-Type filtering to routes
 routes:
   - route: ^/$
     method: GET
@@ -28,3 +29,13 @@ routes:
   - route: ^/todos\\/[0-9]+/$
     method: DELETE
     controller: todos/delete_todo.cgi
+graphql_endpoint: /graphql
+graphql_method: POST
+graphql_require_response_header: true
+resolvers:
+  Query:
+    todos:
+      resolver: resolvers/query_todos.cgi
+      args:
+        - id: ID!
+  # For now all fields use default resolver

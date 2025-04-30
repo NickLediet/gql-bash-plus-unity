@@ -15,6 +15,18 @@ export type Route = {
   controller: string 
 }
 
+export type GraphqlResolver = {
+  resolver: string,
+  args: Record<string, string>
+}
+
+export type GraphqlConfig = {
+  graphql_endpoint: string,
+  graphql_method: HttpMethod,
+  graphql_require_response_header: boolean,
+  resolvers: Record<string, GraphqlResolver>
+}
+
 export type BashGqlConfigOptions = {
   /**
    * Absolute path to the cgi entry script, likely a router
@@ -44,8 +56,9 @@ export type BashGqlConfigOptions = {
   /**
    * route declarations
    */
-  routes: Route[]
-}
+  routes: Route[],
+
+} & GraphqlConfig
 
 export async function parseConfig(
   filePath: string

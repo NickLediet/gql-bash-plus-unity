@@ -37,6 +37,9 @@ function setupServer(script: string, port: number) {
     process.env.LIB_DIR = config.libDir
     process.env.TEMP_DIR = path.resolve(config.tempDir)
     process.env.SRC_DIR = srcDir
+    process.env.GRAPHQL_ENDPOINT = config.graphql_endpoint
+    process.env.GRAPHQL_METHOD = config.graphql_method
+    process.env.GRAPHQL_REQUIRE_RESPONSE_HEADER = config.graphql_require_response_header.toString()
 
     setupServer(script, port)
   } catch (error) {
